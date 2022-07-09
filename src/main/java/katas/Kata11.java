@@ -79,8 +79,10 @@ public class Kata11 {
                                                 .map(boxArtId -> ImmutableMap.of(
                                                         "width", boxArtId.get("width"),
                                                         "url", boxArtId.get("url"))
-                                                ).sorted()
-                                                .findFirst().get().toString()))
+                                                )
+                                                .map(item -> item.get("width").hashCode())
+                                                .reduce(Integer::min)
+                                                .get().toString()))
                         ))).collect(Collectors.toList());
     }
 
