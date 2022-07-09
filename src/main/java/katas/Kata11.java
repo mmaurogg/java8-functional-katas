@@ -6,6 +6,8 @@ import util.DataUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
     Goal: Create a datastructure from the given data:
@@ -63,10 +65,26 @@ public class Kata11 {
         List<Map> boxArts = DataUtil.getBoxArts();
         List<Map> bookmarkList = DataUtil.getBookmarkList();
 
+        return lists.stream()
+                .map(lista -> ImmutableMap.of(
+                        "name", lista.get("name"),
+                        "videos", ImmutableList.of(
+                                anyFilter(videos, lista.get("id"))
+                                .map(video -> ImmutableMap.of(
+                                        "id", video.get("id"),
+                                        "title", video.get("title"),
+                                        "time", anyFilter(bookmarkList, video.get("id"))
+                                                .map(bookMarkId -> bookMarkId.get("time")).findFirst().orElseThrow(),
+                                        "boxart", anyFilter(boxArts, video.get("id"))
+                                                .map(boxArtId -> ImmutableMap.of(
+                                                        "width", boxArtId.get("width"),
+                                                        "url", boxArtId.get("url"))
+                                                ).sorted()
+                                                .findFirst().get().toString()))
+                        ))).collect(Collectors.toList());
+    }
 
-
-        return ImmutableList.of(ImmutableMap.of("name", "someName", "videos", ImmutableList.of(
-                ImmutableMap.of("id", 5, "title", "The Chamber", "time", 123, "boxart", "someUrl")
-        )));
+    public static Stream<Map> anyFilter(List<Map> objects, Object condition){
+        return  objects.stream().filter(object -> object.get("id").equals(condition));
     }
 }
