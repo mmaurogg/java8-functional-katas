@@ -92,6 +92,7 @@ public class DataUtil {
                         new InterestingMoment("Middle", new Date()),
                         new InterestingMoment("Start", new Date())
                 )));
+
         result.add(new Movie(654356453,
                 "Bad Boys",
                 ImmutableList.of(
@@ -106,6 +107,7 @@ public class DataUtil {
                         new InterestingMoment("Middle", new Date()),
                         new InterestingMoment("Start", new Date())
                 )));
+
         result.add(new Movie(65432445,
                 "The Chamber",
                 ImmutableList.of(
@@ -120,6 +122,7 @@ public class DataUtil {
                         new InterestingMoment("Middle", new Date()),
                         new InterestingMoment("Start", new Date())
                 )));
+
         result.add(new Movie(675465,
                 "Fracture",
                 ImmutableList.of(
